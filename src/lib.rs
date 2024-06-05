@@ -32,6 +32,20 @@ impl Calculator {
         self.stack.last().cloned()
     }
 
+    pub fn equal_verify(&self) -> Option<i32> {
+        if self.stack.len() < 2 {
+            return None;
+        }
+        let last = self.stack[self.stack.len() - 1];
+        let second_last = self.stack[self.stack.len() - 2];
+
+        if last == second_last {
+            Some(1)
+        } else {
+            Some(0)
+        }
+    }
+
     pub fn dup(&mut self) {
         if let Some(&top) = self.stack.last() {
             self.stack.push(top);
@@ -39,7 +53,6 @@ impl Calculator {
             println!("Stack is empty");
         }
     }
-
 }
 
 #[cfg(test)]

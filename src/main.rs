@@ -1,5 +1,7 @@
 use stackman::Calculator;
-use std::io::{self, Write};
+use std::{
+    io::{self, Write},
+};
 
 fn main() {
     let mut calc = Calculator::new();
@@ -7,6 +9,8 @@ fn main() {
 
     loop {
         print!("> ");
+        // Flushing the output - force any
+        // buffered output to be written out immediately.
         io::stdout().flush().unwrap();
 
         let mut input = String::new();
@@ -19,9 +23,16 @@ fn main() {
                 "sub" => calc.sub(),
                 "equal" => {
                     if let Some(result) = calc.equal() {
-                        println!("Result: {}", result);
+                        println!("Result {}", result);
                     } else {
                         println!("No result available");
+                    }
+                }
+                "equal_verify" => {
+                    if let Some(result) = calc.equal_verify() {
+                        println!("Equal! - Result {}", result);
+                    } else {
+                        println!("False - Not Equal");
                     }
                 }
                 "dup" => calc.dup(),
